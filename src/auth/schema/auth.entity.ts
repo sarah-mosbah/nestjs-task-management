@@ -2,11 +2,8 @@ import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({ timestamps: true })
 export class Auth {
-  @Prop({ required: true })
-  id: string;
-
-  @Prop({ required: true, trim: true })
-  name: string;
+  @Prop({ required: true, trim: true, index: true, unique: true })
+  username: string;
 
   @Prop({ required: true })
   password: string;

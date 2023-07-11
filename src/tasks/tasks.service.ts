@@ -33,17 +33,12 @@ export class TasksService {
   async getAllTasks(): Promise<Task[]> {
     return this.taskRepository.findAll();
   }
-  // etTaskById(id: string): Task {
-  //   return this.tasks.find((task) => task.id === id);
-  // }
-  // deleteTask(id: string): Task {
-  //   const index = this.tasks.findIndex((task) => task.id === id);
-  //   if (index > -1) {
-  //     const task = this.tasks.splice(index, 1);
-  //     return task[0];
-  //   }
-  //   return null;
-  // }
+  getTaskById(id: string): Promise<Task> {
+    return this.taskRepository.getTaskById(id);
+  }
+  async deleteTask(id: string): Promise<Task> {
+    return this.taskRepository.deleteTask(id);
+  }
 
   // updateTask(id: string, status: TaskStatus): Task {
   //   const task = this.tasks.find((task) => task.id === id);

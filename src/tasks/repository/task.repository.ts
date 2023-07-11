@@ -4,9 +4,10 @@ import { TaskEntity } from '../schema/task.entity';
 import { Model } from 'mongoose';
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { Task } from '../tasks.model';
+import { ITaskRepository } from './ITask.repository';
 
 @Injectable()
-export class MongoTaskRepository {
+export class MongoTaskRepository implements ITaskRepository {
   constructor(@InjectModel(TaskEntity.name) readonly taskModel: Model<Task>) {}
 
   async create(createTaskDto: CreateTaskDto): Promise<Task> {
@@ -16,5 +17,12 @@ export class MongoTaskRepository {
 
   async findAll(): Promise<Task[]> {
     return this.taskModel.find().exec();
+  }
+
+  async getTaskById(taskId: string): Promise<Task> {
+    return this.taskModel.findById(taskId);
+  }
+  async deleteTask(taskId: string): Promise<Task> {
+    return this.taskModel.findByIdAndRemove(taskId);
   }
 }
