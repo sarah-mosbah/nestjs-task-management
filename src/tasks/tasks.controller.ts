@@ -7,12 +7,14 @@ import {
   Patch,
   Post,
   Query,
+  UseFilters,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 // import { TaskStatus } from './tasks.model';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { GetTaskById } from './dto/get-task-by-id.dto';
+import { HttpExceptionFilter } from 'src/exceptions/exception.filter';
 
 @Controller('tasks')
 export class TasksController {
@@ -27,6 +29,7 @@ export class TasksController {
   }
 
   @Get(':id')
+  @UseFilters(new HttpExceptionFilter())
   getTaskById(@Param() { id }: GetTaskById) {
     return this.tasksService.getTaskById(id);
   }

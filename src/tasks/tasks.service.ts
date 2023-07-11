@@ -1,10 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Task, TaskStatus } from './tasks.model';
 import { v4 as uuid } from 'uuid';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { MongoTaskRepository } from './repository/task.repository';
 import { TASK_REPOSITORY_INJECTION_TOKEN } from './injection-tokens';
+import { HttpExceptionFilter } from 'src/exceptions/exception.filter';
 @Injectable()
 export class TasksService {
   // private tasks: Task[] = [];
@@ -34,6 +35,7 @@ export class TasksService {
     return this.taskRepository.findAll();
   }
   getTaskById(id: string): Promise<Task> {
+    throw new NotFoundException();
     return this.taskRepository.getTaskById(id);
   }
   async deleteTask(id: string): Promise<Task> {
